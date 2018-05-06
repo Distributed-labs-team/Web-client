@@ -4,6 +4,8 @@ import {withStyles} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import logo from '../logo.svg';
+import {auth} from "../security/auth";
+import {Redirect} from "react-router-dom";
 
 const styles = theme => ({
     textField: {
@@ -20,7 +22,8 @@ class Login extends React.Component {
 
     state = {
         email: "",
-        password: ""
+        password: "",
+        redirectToReferrer: false
     };
 
     handleChange = name => event => {
@@ -54,6 +57,10 @@ class Login extends React.Component {
                 console.log(response.json());
                 console.log(response.headers.get('Authorization'));
                 localStorage.setItem('token', response.headers.get('Authorization'));
+                auth.authenticate();
+                this.setState({
+                    redirectToReferrer: true
+                });
             }
         });
 
@@ -61,7 +68,12 @@ class Login extends React.Component {
 
     render() {
         const {classes} = this.props;
+        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        const { redirectToReferrer } = this.state;
 
+        if (redirectToReferrer === true) {
+            return <Redirect to={from} />
+        }
         return (
             <div>
                 <header className="App-header">
