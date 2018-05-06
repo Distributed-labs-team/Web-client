@@ -10,6 +10,9 @@ function testReducer(state = [], action) {
     }
 }
 
+//todo: create reducers
+
+
 export default combineReducers({
     testReducer
 });

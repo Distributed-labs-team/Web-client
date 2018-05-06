@@ -41,15 +41,6 @@ class Login extends React.Component {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Accept", "application/json");
-        // myHeaders.append("Access-Control-Allow-Origin", "*");
-        // myHeaders.append("Access-Control-Expose-Headers", "Authorization");
-
-        // let config = {
-        //     headers: { 'Content-Type':'application/json',
-        //         'Access-Control-Allow-Origin': '*',
-        //         'Access-Control-Expose-Headers': 'Authorization'
-        //     }
-        // }
 
         fetch(SERVER_URL + "/login", {
             method: "POST",
@@ -59,19 +50,10 @@ class Login extends React.Component {
         }).then((response) => {
             console.log(response);
             if (response.ok) {
-                console.log("headers");
-                console.log(response.headers);
+                console.log("login");
                 console.log(response.json());
                 console.log(response.headers.get('Authorization'));
-                console.log(response.headers.get('authorization'));
-                // var token = cookie.load('YWxpYWFkbWlu');
-                // let security = {
-                //     token,
-                //     authenticated: true,
-                // };
-                // saveToken(security);
-                // auth.authenticate();
-                // this.setState({ redirectToReferrer: true });
+                localStorage.setItem('token', response.headers.get('Authorization'));
             }
         });
 
