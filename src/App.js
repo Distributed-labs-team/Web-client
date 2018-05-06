@@ -11,7 +11,10 @@ class App extends Component {
 
     render() {
         console.log("TOKEN");
-        console.log(localStorage.getItem('token'));
+        let token = localStorage.getItem('token');
+        if (token) {
+            auth.authenticate();
+        }
         return (
             <div>
                 <div className="App">
@@ -20,11 +23,13 @@ class App extends Component {
                             <div>
                                 <MainMenu/>
                             </div>
-                            <Switch>
-                                <Route path="/test" component={Test}/>
-                                <Route path="/login" component={Login}/>
-                                <PrivateRoute component={Main}/>
-                            </Switch>
+                            <main>
+                                <Switch>
+                                    <Route path="ht/test" component={Test}/>
+                                    <Route path="/login" component={Login}/>
+                                    <PrivateRoute exac component={Main}/>
+                                </Switch>
+                            </main>
                         </div>
                     </BrowserRouter>
 

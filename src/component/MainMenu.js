@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import Menu, { MenuItem } from 'material-ui/Menu';
 import {auth} from "../security/auth";
 import {NavLink} from "react-router-dom";
+import {Menu, MenuItem} from "material-ui";
 
 class MainMenu extends React.Component {
     state = {
@@ -13,17 +13,23 @@ class MainMenu extends React.Component {
         this.setState({ anchorEl: event.currentTarget });
     };
 
-    handleClose = () => {
-        this.setState({ anchorEl: null });
-    };
-
     handleProducts = () => {
-        this.setState({ anchorEl: null });
+        this.closeMenu();
     };
 
     handleAccount = () => {
-        this.setState({ anchorEl: null });
+        this.closeMenu();
     };
+
+    handleLogout = () => {
+        auth.logout();
+        localStorage.clear();
+        this.closeMenu();
+    };
+
+    closeMenu() {
+        this.setState({ anchorEl: null });
+    }
 
     render() {
         const { anchorEl } = this.state;
@@ -41,15 +47,15 @@ class MainMenu extends React.Component {
                     id="simple-menu"
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
-                    onClose={this.handleClose}
+                    onClose={() => this.closeMenu()}
                 >
-                    {/*<NavLink to="/products" style={{ textDecoration: 'none' }}>*/}
-                        {/*<MenuItem onClick={this.handleProducts}>Products</MenuItem>*/}
-                    {/*</NavLink>*/}
-                    {/*<NavLink to="/account" style={{ textDecoration: 'none' }}>*/}
-                        {/*<MenuItem onClick={this.handleAccount}>My account</MenuItem>*/}
-                    {/*</NavLink>*/}
-                    <NavLink to="/" onClick={auth.logout} style={{ textDecoration: 'none' }}>
+                    <NavLink to="/products" style={{ textDecoration: 'none' }}>
+                        <MenuItem onClick={this.handleProducts}>Products</MenuItem>
+                    </NavLink>
+                    <NavLink to="/account" style={{ textDecoration: 'none' }}>
+                        <MenuItem onClick={this.handleAccount}>My account</MenuItem>
+                    </NavLink>
+                    <NavLink to="/" onClick={this.handleLogout} style={{ textDecoration: 'none' }}>
                         <MenuItem>Logout</MenuItem>
                     </NavLink>
 

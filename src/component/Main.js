@@ -14,15 +14,13 @@ class Main extends React.Component {
         return (
             <div>
                 Hello, page
-                <BrowserRouter>
-                    <Switch>
-                        <Route path="/products" component={ProductsList}/>
-                        <Route path="/account" component={UserAccount}/>
-                        <Route component={Test}/>
-                    </Switch>
-                </BrowserRouter>
-
+                <Switch>
+                    <Route exac path="/products" component={ProductsList}/>
+                    <Route exac path="/account" component={UserAccount}/>
+                    <Route component={Test}/>
+                </Switch>
             </div>
+
         );
     }
 }

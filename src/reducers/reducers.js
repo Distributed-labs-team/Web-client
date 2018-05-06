@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {TEST} from "../actions/actions";
+import {SAVE_PRODUCTS, TEST} from "../actions/actions";
 
 function testReducer(state = [], action) {
     switch (action.type) {
@@ -10,9 +10,19 @@ function testReducer(state = [], action) {
     }
 }
 
+function products(state = [], action) {
+    switch (action.type) {
+        case SAVE_PRODUCTS:
+            return action.products;
+        default:
+            return state
+    }
+}
+
 //todo: create reducers
 
 
 export default combineReducers({
-    testReducer
+    testReducer,
+    products,
 });
