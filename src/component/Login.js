@@ -39,7 +39,6 @@ class Login extends React.Component {
             email: this.state.email,
             password: this.state.password
         };
-        //todo: login
 
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -55,12 +54,16 @@ class Login extends React.Component {
             if (response.ok) {
                 console.log("login");
                 console.log(response.json());
-                console.log(response.headers.get('Authorization'));
-                localStorage.setItem('token', response.headers.get('Authorization'));
-                auth.authenticate();
-                this.setState({
-                    redirectToReferrer: true
-                });
+                let token = response.headers.get('Authorization');
+                console.log(token);
+                if (token) {
+                    localStorage.setItem('token', token);
+                    auth.authenticate();
+                    this.setState({
+                        redirectToReferrer: true
+                    });
+                }
+
             }
         });
 

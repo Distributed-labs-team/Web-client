@@ -4,19 +4,19 @@ import {withStyles} from 'material-ui/styles';
 
 const styles = theme => ({});
 
-class Page2 extends React.Component {
+class UserAccount extends React.Component {
 
     render() {
         return (
             <div>
-                Hello, page2
+                User account
             </div>
         );
     }
 }
 
-Page2.propTypes = {
+UserAccount.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Page2);
+export default withStyles(styles)(UserAccount);

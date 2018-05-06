@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Page1 from "./Page1";
-import Page2 from "./Page2";
-import Login from "./Login";
+import ProductsList from "./ProductsList";
+import UserAccount from "./UserAccount";
 import Test from "./Test";
 
 const styles = theme => ({});
 
-class Page extends React.Component {
+class Main extends React.Component {
 
     render() {
         return (
@@ -17,9 +16,9 @@ class Page extends React.Component {
                 Hello, page
                 <BrowserRouter>
                     <Switch>
-                        <Route path="/page1" component={Page1}/>
-                        <Route path="/page2" component={Page2}/>
-                        <Route path="/" component={Test}/>
+                        <Route path="/products" component={ProductsList}/>
+                        <Route path="/account" component={UserAccount}/>
+                        <Route component={Test}/>
                     </Switch>
                 </BrowserRouter>
 
@@ -28,8 +27,8 @@ class Page extends React.Component {
     }
 }
 
-Page.propTypes = {
+Main.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Page);
+export default withStyles(styles)(Main);

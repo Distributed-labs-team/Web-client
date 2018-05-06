@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import './App.css';
 import Login from "./component/Login";
-import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
-import Page from "./component/Page";
+import {BrowserRouter, NavLink, Redirect, Route, Switch, withRouter} from "react-router-dom";
+import Main from "./component/Main";
 import Test from "./component/Test";
 import {auth} from "./security/auth";
+import MainMenu from "./component/MainMenu";
 
 class App extends Component {
 
@@ -15,12 +16,16 @@ class App extends Component {
             <div>
                 <div className="App">
                     <BrowserRouter>
-                        <Switch>
-                            {/*<AuthButton/>*/}
-                            <Route path="/test" component={Test}/>
-                            <Route path="/login" component={Login}/>
-                            <PrivateRoute component={Page}/>
-                        </Switch>
+                        <div>
+                            <div>
+                                <MainMenu/>
+                            </div>
+                            <Switch>
+                                <Route path="/test" component={Test}/>
+                                <Route path="/login" component={Login}/>
+                                <PrivateRoute component={Main}/>
+                            </Switch>
+                        </div>
                     </BrowserRouter>
 
                 </div>
@@ -36,17 +41,5 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             : (<Redirect to={{pathname: '/login', state: {from: props.location}}}/>)
     )}/>
 };
-
-// const AuthButton = withRouter(({ history }) => (
-//     auth.isAuthenticated ? (
-//         <p>
-//             Welcome! <button onClick={() => {
-//             auth.logout(() => history.push('/'))
-//         }}>Sign out</button>
-//         </p>
-//     ) : (
-//         <p>You are not logged in.</p>
-//     )
-// ));
 
 export default App;
