@@ -48,7 +48,7 @@ class UserAccount extends React.Component {
                     <div><p>Email: {this.state.user.email}</p></div>
                 </TabContainer>}
                 {value === 1 && <ProductsList isOwner={true}/>}
-                {value === 2 && <AddProduct/>}
+                {value === 2 && <AddProduct user={this.state.user}/>}
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import {saveProducts} from "../actions/actions";
+import {addProduct, saveProducts} from "../actions/actions";
 import {SERVER_URL} from "../actions/configs";
 
 function headers() {
@@ -19,6 +19,22 @@ export function getProducts() {
         return response.json();
     }).then((json) => {
         saveProducts(json);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+export function createProduct(product) {
+    fetch(SERVER_URL + "/product-service/products", {
+        method: "POST",
+        headers: headers(),
+        credentials: 'same-origin',
+        body: JSON.stringify(product),
+    }).then((response) => {
+        console.log(response);
+        return response.json();
+    }).then((json) => {
+        addProduct(json);
     }).catch(function (error) {
         console.log(error);
     });
