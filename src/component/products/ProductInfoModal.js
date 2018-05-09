@@ -27,8 +27,7 @@ class ProductInfoModal extends React.Component {
 
     render() {
         const {classes} = this.props;
-        console.log(this.props.isOpen);
-        console.log(this.props.product);
+
         return <div>
             <Modal
                 aria-labelledby="simple-modal-title"
@@ -45,9 +44,7 @@ class ProductInfoModal extends React.Component {
                             <div style={{display: "flex"}}><p>Price:</p><p>{this.props.product.price}$</p></div>
                         </div>
                         <div>
-                            <p>
-                                <p>Description:</p>{this.props.product.description}
-                            </p>
+                            <p>Description:</p><p>{this.props.product.description}</p>
                         </div>
                     </div>}
                 </div>

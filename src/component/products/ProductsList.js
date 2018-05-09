@@ -11,8 +11,7 @@ import ProductInfoModal from "./ProductInfoModal";
 const styles = theme => ({
     main: {
         overflowY: 'auto',
-        height: '100%',
-        margin: '50px'
+        height: '100%'
     },
     root: {
         width: '100%',
@@ -32,6 +31,7 @@ class ProductsList extends React.Component {
         page: 0,
         rowsPerPage: 10,
         isOpen: false,
+        // isOwner: this.props.isOwner ? this.props.isOwner : false,
     };
 
     componentWillMount() {
@@ -75,7 +75,7 @@ class ProductsList extends React.Component {
                                     <TableCell>Name</TableCell>
                                     <TableCell>Description</TableCell>
                                     <TableCell numeric>Price ($)</TableCell>
-                                    <TableCell style={{width: "1px"}}/>
+                                    {this.props.isOwner && <TableCell style={{width: "1px"}}/>}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -92,12 +92,9 @@ class ProductsList extends React.Component {
                                         <TableCell numeric>
                                             <div><p>{product.price}</p></div>
                                         </TableCell>
-                                        <TableCell style={{width: "1px"}}><MoreVert/></TableCell>
+                                        {this.props.isOwner && <TableCell style={{width: "1px"}}><MoreVert/></TableCell>}
                                     </TableRow>
                                 )}
-                                <ProductInfoModal isOpen = {this.state.isOpen}
-                                                  product={this.state.product}
-                                                  handleClose={this.handleCloseModal}/>
                             </TableBody>
                             {this.props.products.length > rowsPerPage &&
                             <TableFooter>
@@ -114,6 +111,9 @@ class ProductsList extends React.Component {
                                 </TableRow>
                             </TableFooter>}
                         </Table>
+                        <ProductInfoModal isOpen = {this.state.isOpen}
+                                          product={this.state.product}
+                                          handleClose={this.handleCloseModal}/>
                     </div>
                 </Paper>
             </div>

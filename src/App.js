@@ -10,7 +10,6 @@ import MainMenu from "./component/MainMenu";
 class App extends Component {
 
     render() {
-        console.log("TOKEN");
         let token = localStorage.getItem('token');
         if (token) {
             auth.authenticate();
