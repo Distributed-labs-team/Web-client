@@ -2,15 +2,9 @@ import {saveProducts} from "../actions/actions";
 import {SERVER_URL} from "../actions/configs";
 
 function headers() {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Accept", "application/json");
-    myHeaders.append("Access-Control-Allow-Origin", "*");
-    myHeaders.append("Access-Control-Expose-Headers", "Authorization");
-    myHeaders.append("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-    myHeaders.append("Access-Control-Allow-Headers", "Content-Type");
-    myHeaders.append("Access-Control-Expose-Headers", "Authorization");
     console.log('request ' + localStorage.getItem("token"));
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", localStorage.getItem("token") || null);
     return myHeaders;
 }

@@ -1,23 +1,20 @@
 /*
  * action types
  */
-export const TEST = "TEST";
+import {store} from "../index";
+
 export const SAVE_PRODUCTS = "SAVE_PRODUCTS";
 
 
 /*
  * action creators
  */
-export function test(test) {
-    return {
-        type: TEST,
-        test
-    }
-}
 
-export function saveProducts(products) {
-    return {
-        type: SAVE_PRODUCTS,
-        test: products
-    }
-}
+export const saveProducts = (products) => (
+    store.dispatch(
+        {
+            type: SAVE_PRODUCTS,
+            products
+        }
+    )
+);
