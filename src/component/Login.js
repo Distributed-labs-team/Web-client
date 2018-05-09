@@ -6,6 +6,7 @@ import Button from 'material-ui/Button';
 import logo from '../logo.svg';
 import {auth} from "../security/auth";
 import {Redirect} from "react-router-dom";
+import {SERVER_URL} from "../actions/configs";
 
 const styles = theme => ({
     textField: {
@@ -33,9 +34,8 @@ class Login extends React.Component {
     };
 
     handleLogin() {
-        var SERVER_URL = "http://localhost:8080";
         console.log(this.state.email + " " + this.state.password);
-        var user = {
+        let user = {
             email: this.state.email,
             password: this.state.password
         };
@@ -53,7 +53,6 @@ class Login extends React.Component {
             console.log(response);
             if (response.ok) {
                 console.log("login");
-                console.log(response.json());
                 let token = response.headers.get('Authorization');
                 console.log(token);
                 if (token) {
@@ -62,20 +61,21 @@ class Login extends React.Component {
                     this.setState({
                         redirectToReferrer: true
                     });
+                    return response.json();
                 }
-
             }
+        }).then((json) => {
+            localStorage.setItem('user', JSON.stringify(json));
         });
-
     };
 
     render() {
         const {classes} = this.props;
-        const { from } = this.props.location.state || { from: { pathname: '/' } }
-        const { redirectToReferrer } = this.state;
+        const {from} = this.props.location.state || {from: {pathname: '/'}}
+        const {redirectToReferrer} = this.state;
 
         if (redirectToReferrer === true) {
-            return <Redirect to={from} />
+            return <Redirect to={from}/>
         }
         return (
             <div>

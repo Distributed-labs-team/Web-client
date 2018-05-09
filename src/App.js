@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Login from "./component/Login";
-import {BrowserRouter, NavLink, Redirect, Route, Switch, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import Main from "./component/Main";
 import Test from "./component/Test";
 import {auth} from "./security/auth";
@@ -25,7 +25,7 @@ class App extends Component {
                             </div>
                             <main>
                                 <Switch>
-                                    <Route path="ht/test" component={Test}/>
+                                    <Route path="/test" component={Test}/>
                                     <Route path="/login" component={Login}/>
                                     <PrivateRoute exac component={Main}/>
                                 </Switch>

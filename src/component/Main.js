@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import ProductsList from "./ProductsList";
+import {Route, Switch} from "react-router-dom";
+import ProductsList from "./products/ProductsList";
 import UserAccount from "./UserAccount";
 import Test from "./Test";
 
