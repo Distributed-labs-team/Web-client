@@ -3,7 +3,7 @@ import {SERVER_URL} from "../actions/configs";
 
 function headers() {
     console.log('request ' + localStorage.getItem("token"));
-    var myHeaders = new Headers();
+    let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", localStorage.getItem("token") || null);
     return myHeaders;

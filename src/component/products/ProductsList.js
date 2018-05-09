@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {Paper, Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow} from "material-ui";
 import TablePaginationActionsWrapped from "./TablePaginationActionsWrapped";
 import {MoreVert} from "@material-ui/icons/es/index";
+import ProductInfoModal from "./ProductInfoModal";
 
 const styles = theme => ({
     main: {
@@ -30,6 +31,7 @@ class ProductsList extends React.Component {
     state = {
         page: 0,
         rowsPerPage: 10,
+        isOpen: false,
     };
 
     componentWillMount() {
@@ -44,10 +46,23 @@ class ProductsList extends React.Component {
         this.setState({rowsPerPage: event.target.value});
     };
 
+    openProductInfo = productId => {
+        let product = this.props.products.filter(function( product ) {
+            return product.id === productId;
+        })[0];
+        this.setState({
+            isOpen: true,
+            product: product,
+        })
+    };
+
+    handleCloseModal = () => {
+        this.setState({isOpen: false});
+    };
+
     render() {
         const {classes} = this.props;
         const {rowsPerPage, page} = this.state;
-        const emptyRows = rowsPerPage - Math.min(rowsPerPage, this.props.products.length - page * rowsPerPage);
 
         return (
             <div className={classes.main}>
@@ -66,7 +81,8 @@ class ProductsList extends React.Component {
                             <TableBody>
                                 {this.props.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(product =>
                                     <TableRow
-                                        key={product.id}>
+                                        key={product.id}
+                                        onClick={() => this.openProductInfo(product.id)}>
                                         <TableCell>
                                             <div><p>{product.name}</p></div>
                                         </TableCell>
@@ -79,6 +95,9 @@ class ProductsList extends React.Component {
                                         <TableCell style={{width: "1px"}}><MoreVert/></TableCell>
                                     </TableRow>
                                 )}
+                                <ProductInfoModal isOpen = {this.state.isOpen}
+                                                  product={this.state.product}
+                                                  handleClose={this.handleCloseModal}/>
                             </TableBody>
                             {this.props.products.length > rowsPerPage &&
                             <TableFooter>
