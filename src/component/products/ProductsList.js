@@ -31,7 +31,6 @@ class ProductsList extends React.Component {
         page: 0,
         rowsPerPage: 10,
         isOpen: false,
-        // isOwner: this.props.isOwner ? this.props.isOwner : false,
     };
 
     componentWillMount() {
@@ -64,6 +63,18 @@ class ProductsList extends React.Component {
         const {classes} = this.props;
         const {rowsPerPage, page} = this.state;
 
+        console.log(this.props.userEmail);
+        console.log(this.props.products);
+
+        let products = [];
+        if (this.props.products) {
+                products = this.props.isOwner && this.props.products > 0 ? (this.props.products.filter(function( prod ) {
+                console.log(prod);
+                console.log(prod.owner);
+                return prod.owner === this.props.userEmail;
+            })) : this.props.products;
+        }
+
         return (
             <div className={classes.main}>
                 <Paper className={classes.root}>
@@ -79,7 +90,7 @@ class ProductsList extends React.Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.props.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(product =>
+                                {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(product =>
                                     <TableRow
                                         key={product.id}
                                         onClick={() => this.openProductInfo(product.id)}>
@@ -96,12 +107,12 @@ class ProductsList extends React.Component {
                                     </TableRow>
                                 )}
                             </TableBody>
-                            {this.props.products.length > rowsPerPage &&
+                            {products.length > rowsPerPage &&
                             <TableFooter>
                                 <TableRow>
                                     <TablePagination
                                         colSpan={3}
-                                        count={this.props.products.length}
+                                        count={products.length}
                                         rowsPerPage={rowsPerPage}
                                         page={page}
                                         onChangePage={this.handleChangePage}

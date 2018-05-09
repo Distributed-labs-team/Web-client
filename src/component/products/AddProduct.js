@@ -1,6 +1,5 @@
 import React from "react";
 import {Button, TextField} from "material-ui";
-import NumberInput from 'material-ui-number-input';
 import {withStyles} from "material-ui/styles/index";
 import {createProduct} from "../../api/products";
 
@@ -29,7 +28,7 @@ class AddProduct extends React.Component {
 
     createProduct = () => {
         let newProduct = this.state;
-        newProduct.price = parseInt(this.state.price);
+        newProduct.price = parseInt(this.state.price, 10);
         newProduct.ownerEmail = this.props.user.email;
         console.log(newProduct);
         createProduct(newProduct);
