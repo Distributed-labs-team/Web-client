@@ -31,11 +31,27 @@ class ProductsList extends React.Component {
         page: 0,
         rowsPerPage: 10,
         isOpen: false,
+        // products: []
     };
 
     componentWillMount() {
         getProducts();
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     let email = this.props.userEmail;
+    //     console.log(this.props.isOwner);
+    //     console.log(nextProps.products);
+    //     if (nextProps.products && this.props.products.length > 0) {
+    //         let products = this.props.isOwner && this.props.products.length > 0
+    //             ? (this.props.products.filter(function( prod ) {return prod.owner === email;}))
+    //             : this.props.products;
+    //         console.log(products);
+    //         this.setState({
+    //             products: products,
+    //         });
+    //     }
+    // }
 
     handleChangePage = (event, page) => {
         this.setState({page});
@@ -61,17 +77,14 @@ class ProductsList extends React.Component {
 
     render() {
         const {classes} = this.props;
+        // const {rowsPerPage, page, products} = this.state;
+
         const {rowsPerPage, page} = this.state;
-
-        console.log(this.props.userEmail);
-        console.log(this.props.products);
-
         let products = [];
+        let email = this.props.userEmail;
         if (this.props.products) {
-                products = this.props.isOwner && this.props.products > 0 ? (this.props.products.filter(function( prod ) {
-                console.log(prod);
-                console.log(prod.owner);
-                return prod.owner === this.props.userEmail;
+            products = (this.props.isOwner && this.props.products.length > 0) ? (this.props.products.filter(function( prod ) {
+                return prod.owner === email;//todo: this.props.userEmail were not available in function!
             })) : this.props.products;
         }
 

@@ -18,6 +18,7 @@ export function getProducts() {
         console.log(response);
         return response.json();
     }).then((json) => {
+        console.log(json);
         saveProducts(json);
     }).catch(function (error) {
         console.log(error);
