@@ -1,4 +1,4 @@
-import {addProduct, saveProducts} from "../actions/actions";
+import {addProduct, deleteProduct, saveProducts} from "../actions/actions";
 import {SERVER_URL} from "../actions/configs";
 
 function headers() {
@@ -36,6 +36,21 @@ export function createProduct(product) {
         return response.json();
     }).then((json) => {
         addProduct(json);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+export function removeProduct(productId) {
+    fetch(SERVER_URL + "/product-service/products/" + productId, {
+        method: "DELETE",
+        headers: headers(),
+        credentials: 'same-origin'
+    }).then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+            deleteProduct(productId);
+        }
     }).catch(function (error) {
         console.log(error);
     });
