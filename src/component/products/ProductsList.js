@@ -11,8 +11,7 @@ import ProductInfoModal from "./ProductInfoModal";
 const styles = theme => ({
     main: {
         overflowY: 'auto',
-        height: '100%',
-        margin: '50px'
+        height: '100%'
     },
     root: {
         width: '100%',
@@ -32,11 +31,27 @@ class ProductsList extends React.Component {
         page: 0,
         rowsPerPage: 10,
         isOpen: false,
+        // products: []
     };
 
     componentWillMount() {
         getProducts();
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     let email = this.props.userEmail;
+    //     console.log(this.props.isOwner);
+    //     console.log(nextProps.products);
+    //     if (nextProps.products && this.props.products.length > 0) {
+    //         let products = this.props.isOwner && this.props.products.length > 0
+    //             ? (this.props.products.filter(function( prod ) {return prod.owner === email;}))
+    //             : this.props.products;
+    //         console.log(products);
+    //         this.setState({
+    //             products: products,
+    //         });
+    //     }
+    // }
 
     handleChangePage = (event, page) => {
         this.setState({page});
@@ -62,7 +77,16 @@ class ProductsList extends React.Component {
 
     render() {
         const {classes} = this.props;
+        // const {rowsPerPage, page, products} = this.state;
+
         const {rowsPerPage, page} = this.state;
+        let products = [];
+        let email = this.props.userEmail;
+        if (this.props.products) {
+            products = (this.props.isOwner && this.props.products.length > 0) ? (this.props.products.filter(function( prod ) {
+                return prod.owner === email;//todo: this.props.userEmail were not available in function!
+            })) : this.props.products;
+        }
 
         return (
             <div className={classes.main}>
@@ -75,11 +99,11 @@ class ProductsList extends React.Component {
                                     <TableCell>Name</TableCell>
                                     <TableCell>Description</TableCell>
                                     <TableCell numeric>Price ($)</TableCell>
-                                    <TableCell style={{width: "1px"}}/>
+                                    {this.props.isOwner && <TableCell style={{width: "1px"}}/>}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.props.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(product =>
+                                {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(product =>
                                     <TableRow
                                         key={product.id}
                                         onClick={() => this.openProductInfo(product.id)}>
@@ -92,19 +116,16 @@ class ProductsList extends React.Component {
                                         <TableCell numeric>
                                             <div><p>{product.price}</p></div>
                                         </TableCell>
-                                        <TableCell style={{width: "1px"}}><MoreVert/></TableCell>
+                                        {this.props.isOwner && <TableCell style={{width: "1px"}}><MoreVert/></TableCell>}
                                     </TableRow>
                                 )}
-                                <ProductInfoModal isOpen = {this.state.isOpen}
-                                                  product={this.state.product}
-                                                  handleClose={this.handleCloseModal}/>
                             </TableBody>
-                            {this.props.products.length > rowsPerPage &&
+                            {products.length > rowsPerPage &&
                             <TableFooter>
                                 <TableRow>
                                     <TablePagination
                                         colSpan={3}
-                                        count={this.props.products.length}
+                                        count={products.length}
                                         rowsPerPage={rowsPerPage}
                                         page={page}
                                         onChangePage={this.handleChangePage}
@@ -114,6 +135,9 @@ class ProductsList extends React.Component {
                                 </TableRow>
                             </TableFooter>}
                         </Table>
+                        <ProductInfoModal isOpen = {this.state.isOpen}
+                                          product={this.state.product}
+                                          handleClose={this.handleCloseModal}/>
                     </div>
                 </Paper>
             </div>
