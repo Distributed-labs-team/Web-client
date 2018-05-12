@@ -4,6 +4,7 @@ import {withStyles} from 'material-ui/styles';
 import {AppBar, Tab, Tabs, Typography} from "material-ui";
 import ProductsList from "../products/ProductsList";
 import AddProduct from "../products/AddProduct";
+import UserOrders from "../orders/UserOrders";
 
 const styles = theme => ({
     root: {
@@ -39,6 +40,7 @@ class UserAccount extends React.Component {
                 <AppBar position="static">
                     <Tabs value={value} onChange={this.handleChangeTab}>
                         <Tab label="Account Info" />
+                        <Tab label="My Orders" />
                         <Tab label="My Products" />
                         <Tab label="Add Product" />
                     </Tabs>
@@ -47,8 +49,9 @@ class UserAccount extends React.Component {
                     <p>User Account</p>
                     <div><p>Email: {this.state.user.email}</p></div>
                 </TabContainer>}
-                {value === 1 && <ProductsList isOwner={true} userEmail={this.state.user.email}/>}
-                {value === 2 && <AddProduct user={this.state.user}/>}
+                {value === 1 && <UserOrders userEmail={this.state.user.email}/>}
+                {value === 2 && <ProductsList isOwner={true} userEmail={this.state.user.email}/>}
+                {value === 3 && <AddProduct user={this.state.user}/>}
             </div>
         );
     }

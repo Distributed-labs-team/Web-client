@@ -1,13 +1,6 @@
 import {addProduct, deleteProduct, saveProducts} from "../actions/actions";
 import {SERVER_URL} from "../actions/configs";
-
-function headers() {
-    console.log('request ' + localStorage.getItem("token"));
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", localStorage.getItem("token") || null);
-    return myHeaders;
-}
+import {headers} from "./configs";
 
 export function getProducts() {
     fetch(SERVER_URL + "/product-service/products", {
