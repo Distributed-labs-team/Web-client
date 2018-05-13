@@ -50,9 +50,13 @@ class DeleteProduct extends React.Component {
 
     render() {
         const {classes} = this.props;
+        console.log(this.props.disabled);
 
         return <div>
-            <Button variant="raised" className={classes.button} onClick={this.handleOpen}>Delete</Button>
+            {this.props.disabled
+                ? <Button variant="raised" color="secondary" disabled className={classes.button}>Delete</Button>
+                : <Button variant="raised" color="secondary" className={classes.button}
+                          onClick={this.handleOpen}>Delete</Button>}
             <Modal
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
@@ -63,7 +67,8 @@ class DeleteProduct extends React.Component {
                     <div>
                         <div><p>Are you sure you want to delete this product?</p></div>
                         <div>
-                            <Button style={{width: '50%'}} className={classes.button} onClick={this.handleClose}>No</Button>
+                            <Button style={{width: '50%'}} className={classes.button}
+                                    onClick={this.handleClose}>No</Button>
                             <Button style={{width: '50%'}} color="secondary" className={classes.button}
                                     onClick={this.deleteProduct}>Yes</Button>
                         </div>

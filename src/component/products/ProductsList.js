@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
-import {getProducts} from "../../api/products";
+import {getProducts, getUserProducts} from "../../api/products";
 import {connect} from "react-redux";
 import {Paper, Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow} from "material-ui";
 import TablePaginationActionsWrapped from "./TablePaginationActionsWrapped";
@@ -31,27 +31,15 @@ class ProductsList extends React.Component {
         page: 0,
         rowsPerPage: 10,
         isOpen: false,
-        // products: []
     };
 
     componentWillMount() {
-        getProducts();
+        if (!this.props.isOwner) {
+            getProducts();
+        } else {
+            getUserProducts(this.props.userEmail)
+        }
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //     let email = this.props.userEmail;
-    //     console.log(this.props.isOwner);
-    //     console.log(nextProps.products);
-    //     if (nextProps.products && this.props.products.length > 0) {
-    //         let products = this.props.isOwner && this.props.products.length > 0
-    //             ? (this.props.products.filter(function( prod ) {return prod.owner === email;}))
-    //             : this.props.products;
-    //         console.log(products);
-    //         this.setState({
-    //             products: products,
-    //         });
-    //     }
-    // }
 
     handleChangePage = (event, page) => {
         this.setState({page});
@@ -76,17 +64,8 @@ class ProductsList extends React.Component {
     };
 
     render() {
-        const {classes} = this.props;
-        // const {rowsPerPage, page, products} = this.state;
-
+        const {classes, products} = this.props;
         const {rowsPerPage, page} = this.state;
-        let products = [];
-        let email = this.props.userEmail;
-        if (this.props.products) {
-            products = (this.props.isOwner && this.props.products.length > 0) ? (this.props.products.filter(function( prod ) {
-                return prod.owner === email;//todo: this.props.userEmail were not available in function!
-            })) : this.props.products;
-        }
 
         return (
             <div className={classes.main}>
@@ -136,6 +115,7 @@ class ProductsList extends React.Component {
                             </TableFooter>}
                         </Table>
                         <ProductInfoModal isOpen = {this.state.isOpen}
+                                          isOwner = {this.props.isOwner}
                                           product={this.state.product}
                                           handleClose={this.handleCloseModal}/>
                     </div>

@@ -1,12 +1,14 @@
-import {SAVE_PRODUCTS} from "../actions/actions";
+import {ADD_ORDER, SAVE_ORDERS} from "../actions/actions";
 
-const products = (state = [], action) => {
+const orders = (state = [], action) => {
     switch (action.type) {
-        case SAVE_PRODUCTS:
-            return action.products;
+        case SAVE_ORDERS:
+            return action.orders;
+        case ADD_ORDER:
+            return [...state, action.order];
         default:
             return state
     }
 };
 
-export default products
+export default orders

@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from 'material-ui/styles';
 import {Route, Switch} from "react-router-dom";
 import ProductsList from "./products/ProductsList";
 import UserAccount from "./user/UserAccount";
 import Test from "./Test";
-
-const styles = theme => ({});
 
 class Main extends React.Component {
 
@@ -28,4 +25,4 @@ Main.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Main);
+export default Main;
