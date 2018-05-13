@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Modal} from "material-ui";
 import {withStyles} from "material-ui/styles/index";
 import {removeProduct} from "../../api/products";
+import {createOrder} from "../../api/orders";
 
 
 function getModalStyle() {
@@ -27,24 +28,27 @@ const styles = theme => ({
     },
 });
 
-class DeleteProduct extends React.Component {
+class BuyProduct extends React.Component {
 
     state = {
-        open: false,
+        openBuy: false,
     };
 
-    handleOpen = () => {
-        this.setState({open: true});
+    handleOpenBuy = () => {
+        this.setState({openBuy: true});
     };
 
-    handleClose = () => {
-        this.setState({open: false});
+    handleCloseBuy = () => {
+        this.setState({openBuy: false});
     };
 
-    deleteProduct = () => {
-        console.log(this.props.productId);
-        removeProduct(this.props.productId);
-        this.handleClose();
+    buyProduct = () => {
+        console.log(this.props.product);
+        let order = {
+            products: [this.props.product],
+        };
+        createOrder(order);
+        this.handleCloseBuy();
         this.props.closeModal();
     };
 
@@ -52,20 +56,20 @@ class DeleteProduct extends React.Component {
         const {classes} = this.props;
 
         return <div>
-            <Button variant="raised" color="secondary" className={classes.button} onClick={this.handleOpen}>Delete</Button>
+            <Button variant="raised"  color="primary" className={classes.button} onClick={this.handleOpenBuy}>Buy</Button>
             <Modal
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
-                open={this.state.open}
-                onClose={this.handleClose}
+                open={this.state.openBuy}
+                onClose={this.handleCloseBuy}
             >
                 <div style={getModalStyle()} className={classes.paper}>
                     <div>
-                        <div><p>Are you sure you want to delete this product?</p></div>
+                        <div><p>Do you want to buy this product?</p></div>
                         <div>
-                            <Button style={{width: '50%'}} className={classes.button} onClick={this.handleClose}>No</Button>
-                            <Button style={{width: '50%'}} color="secondary" className={classes.button}
-                                    onClick={this.deleteProduct}>Yes</Button>
+                            <Button style={{width: '50%'}} className={classes.button} onClick={this.handleCloseBuy}>No</Button>
+                            <Button style={{width: '50%'}} color="primary" className={classes.button}
+                                    onClick={this.buyProduct}>Yes</Button>
                         </div>
                     </div>
                 </div>
@@ -75,4 +79,4 @@ class DeleteProduct extends React.Component {
 
 }
 
-export default withStyles(styles)(DeleteProduct)
+export default withStyles(styles)(BuyProduct)

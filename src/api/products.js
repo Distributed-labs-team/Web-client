@@ -2,8 +2,26 @@ import {addProduct, deleteProduct, saveProducts} from "../actions/actions";
 import {SERVER_URL} from "../actions/configs";
 import {headers} from "./configs";
 
+let PRODUCTS_URL = SERVER_URL + "/product-service/products";
+
 export function getProducts() {
-    fetch(SERVER_URL + "/product-service/products", {
+    fetch(PRODUCTS_URL, {
+        method: "GET",
+        headers: headers(),
+        credentials: 'same-origin'
+    }).then((response) => {
+        console.log(response);
+        return response.json();
+    }).then((json) => {
+        console.log(json);
+        saveProducts(json);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+export function getUserProducts(email) {
+    fetch(PRODUCTS_URL + "/user/" + email, {
         method: "GET",
         headers: headers(),
         credentials: 'same-origin'
@@ -19,7 +37,7 @@ export function getProducts() {
 }
 
 export function createProduct(product) {
-    fetch(SERVER_URL + "/product-service/products", {
+    fetch(PRODUCTS_URL, {
         method: "POST",
         headers: headers(),
         credentials: 'same-origin',
@@ -35,7 +53,7 @@ export function createProduct(product) {
 }
 
 export function removeProduct(productId) {
-    fetch(SERVER_URL + "/product-service/products/" + productId, {
+    fetch(PRODUCTS_URL + "/" + productId, {
         method: "DELETE",
         headers: headers(),
         credentials: 'same-origin'

@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {Modal, withStyles} from "material-ui";
 import DeleteProduct from "./DeleteProduct";
+import BuyProduct from "./BuyProduct";
+import {auth} from "../../security/auth";
 
 function getModalStyle() {
     const top = 50;
@@ -40,9 +42,13 @@ class ProductInfoModal extends React.Component {
                     {this.props.isOpen &&
                     <div>
                         <div style={{display: 'flex'}}><p style={{width: '80%'}}>Product info</p>
-                            <DeleteProduct productId={this.props.product.id} closeModal={this.props.handleClose}/></div>
+                            {this.props.isOwner
+                             ? <DeleteProduct productId={this.props.product.id} closeModal={this.props.handleClose}/>
+                             : auth.isAuthenticated && <BuyProduct product={this.props.product} closeModal={this.props.handleClose}/>}
+                        </div>
                         <div style={{display: "flex"}}>
-                            <div style={{display: "flex", width: "80%"}}><p>Name:</p><p>{this.props.product.name}</p></div>
+                            <div style={{display: "flex", width: "80%"}}><p>Name:</p><p>{this.props.product.name}</p>
+                            </div>
                             <div style={{display: "flex"}}><p>Price:</p><p>{this.props.product.price}$</p></div>
                         </div>
                         <div>
