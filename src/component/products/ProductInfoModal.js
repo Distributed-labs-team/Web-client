@@ -43,7 +43,7 @@ class ProductInfoModal extends React.Component {
                     <div>
                         <div style={{display: 'flex'}}><p style={{width: '80%'}}>Product info</p>
                             {this.props.isOwner
-                             ? <DeleteProduct productId={this.props.product.id} closeModal={this.props.handleClose}/>
+                             ? <DeleteProduct disabled={this.props.product.bought} productId={this.props.product.id} closeModal={this.props.handleClose}/>
                              : auth.isAuthenticated && <BuyProduct product={this.props.product} closeModal={this.props.handleClose}/>}
                         </div>
                         <div style={{display: "flex"}}>
