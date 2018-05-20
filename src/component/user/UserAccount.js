@@ -27,31 +27,34 @@ class UserAccount extends React.Component {
     componentWillMount() {
         this.setState({
             user: JSON.parse(localStorage.getItem("user")),
-        })
+        });
     }
 
     render() {
         const { classes } = this.props;
         const { value } = this.state;
 
-        return (
+        return (//todo: user did not loaded after first enter
             <div className={classes.root}>
-                Welcome, {this.state.user.email}
-                <AppBar position="static" color="default">
-                    <Tabs value={value} onChange={this.handleChangeTab} fullWidth={true}>
-                        <Tab label="Account Info" />
-                        <Tab label="My Orders" />
-                        <Tab label="My Products" />
-                        <Tab label="Add Product" />
-                    </Tabs>
-                </AppBar>
-                {value === 0 && <TabContainer>
-                    <p>User Account</p>
-                    <div><p>Email: {this.state.user.email}</p></div>
-                </TabContainer>}
-                {value === 1 && <UserOrders userEmail={this.state.user.email}/>}
-                {value === 2 && <ProductsList isOwner={true} userEmail={this.state.user.email}/>}
-                {value === 3 && <AddProduct user={this.state.user}/>}
+                {this.state.user &&
+                <div>
+                    <p>Welcome, {this.state.user.email}</p>
+                    <AppBar position="static" color="default">
+                        <Tabs value={value} onChange={this.handleChangeTab} fullWidth={true}>
+                            <Tab label="Account Info" />
+                            <Tab label="My Orders" />
+                            <Tab label="My Products" />
+                            <Tab label="Add Product" />
+                        </Tabs>
+                    </AppBar>
+                    {value === 0 && <TabContainer>
+                        <p>User Account</p>
+                        <div><p>Email: {this.state.user.email}</p></div>
+                    </TabContainer>}
+                    {value === 1 && <UserOrders userEmail={this.state.user.email}/>}
+                    {value === 2 && <ProductsList isOwner={true} userEmail={this.state.user.email}/>}
+                    {value === 3 && <AddProduct user={this.state.user}/>}
+                </div>}
             </div>
         );
     }

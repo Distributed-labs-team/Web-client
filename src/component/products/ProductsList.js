@@ -3,9 +3,18 @@ import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import {getProducts, getUserProducts} from "../../api/products";
 import {connect} from "react-redux";
-import {Paper, Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow} from "material-ui";
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TablePagination,
+    TableRow
+} from "material-ui";
 import TablePaginationActionsWrapped from "./TablePaginationActionsWrapped";
-import {MoreVert} from "@material-ui/icons/es/index";
+import {CheckBox, CheckBoxOutlineBlank, NotInterested, Settings} from "@material-ui/icons/es/index";
 import ProductInfoModal from "./ProductInfoModal";
 
 const styles = theme => ({
@@ -95,7 +104,9 @@ class ProductsList extends React.Component {
                                         <TableCell numeric>
                                             <div><p>{product.price}</p></div>
                                         </TableCell>
-                                        {this.props.isOwner && <TableCell style={{width: "1px"}}><MoreVert/></TableCell>}
+                                        {this.props.isOwner && <TableCell style={{width: "1px"}}>
+                                            {product.bought ? <NotInterested/> : <Settings/>}
+                                        </TableCell>}
                                     </TableRow>
                                 )}
                             </TableBody>
