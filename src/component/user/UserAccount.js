@@ -37,8 +37,8 @@ class UserAccount extends React.Component {
         return (
             <div className={classes.root}>
                 Welcome, {this.state.user.email}
-                <AppBar position="static">
-                    <Tabs value={value} onChange={this.handleChangeTab}>
+                <AppBar position="static" color="default">
+                    <Tabs value={value} onChange={this.handleChangeTab} fullWidth={true}>
                         <Tab label="Account Info" />
                         <Tab label="My Orders" />
                         <Tab label="My Products" />

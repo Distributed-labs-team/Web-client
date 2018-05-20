@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
-import Login from "./component/Login";
+import Login from "./component/main/Login";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import Main from "./component/Main";
-import Test from "./component/Test";
+import Main from "./component/main/Main";
 import {auth} from "./security/auth";
-import MainMenu from "./component/MainMenu";
+import ProductsList from "./component/products/ProductsList";
+import NotFound from "./component/main/NotFound";
+import NavigationPanel from "./component/main/NavigationPanel";
 
 class App extends Component {
 
@@ -20,13 +21,13 @@ class App extends Component {
                     <BrowserRouter>
                         <div>
                             <div>
-                                <MainMenu/>
+                                <NavigationPanel/>
                             </div>
                             <main>
                                 <Switch>
-                                    <Route path="/test" component={Test}/>
                                     <Route path="/login" component={Login}/>
                                     <PrivateRoute exac component={Main}/>
+                                    <Route component={NotFound}/>
                                 </Switch>
                             </main>
                         </div>

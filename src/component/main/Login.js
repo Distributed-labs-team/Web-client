@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import logo from '../logo.svg';
-import {auth} from "../security/auth";
+import logo from '../../logo.svg';
+import {auth} from "../../security/auth";
 import {Redirect} from "react-router-dom";
-import {SERVER_URL} from "../actions/configs";
+import {SERVER_URL} from "../../actions/configs";
 
 const styles = theme => ({
     textField: {
