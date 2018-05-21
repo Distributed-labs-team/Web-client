@@ -30,7 +30,7 @@ class AddProduct extends React.Component {
         let newProduct = this.state;
         newProduct.price = parseInt(this.state.price, 10);
         newProduct.ownerEmail = this.props.user.email;
-        console.log(newProduct);
+        newProduct.bought = false;
         createProduct(newProduct);
     };
 
