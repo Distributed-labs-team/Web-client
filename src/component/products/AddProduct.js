@@ -14,11 +14,17 @@ const styles = theme => ({
 
 class AddProduct extends React.Component {
 
-    state = {
-        name: '',
-        description: '',
-        price: '',
+    componentWillMount() {
+        this.initProduct();
     };
+
+    initProduct() {
+        this.setState({
+            name: '',
+            description: '',
+            price: '',
+        })
+    }
 
     handleChange = name => event => {
         this.setState({
@@ -32,10 +38,11 @@ class AddProduct extends React.Component {
         newProduct.ownerEmail = this.props.user.email;
         newProduct.bought = false;
         createProduct(newProduct);
+        this.initProduct();
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return <div>
             <div><p>Create New Product</p></div>
@@ -71,4 +78,4 @@ class AddProduct extends React.Component {
 
 }
 
-export default  withStyles(styles)(AddProduct)
+export default withStyles(styles)(AddProduct)
